@@ -56,6 +56,8 @@ module MissionControl::Jobs::JobsHelper
         argument["_aj_globalid"]
       elsif argument["_aj_serialized"] == "ActiveJob::Serializers::ModuleSerializer"
         argument["value"]
+      elsif argument["_aj_ruby2_keywords"]
+        argument.transform_values { |value| as_renderable_argument(value) }
       else
         ActiveJob::Arguments.deserialize([ argument ])
       end
